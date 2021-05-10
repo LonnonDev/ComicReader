@@ -1,9 +1,8 @@
 import PyInstaller.__main__
 
 PyInstaller.__main__.run([
+	'main.py',
 	'--windowed',
-	'--distpath ./',
 	'--clean',
-	'--onefile',
-	'main.py'
+	'--onefile'
 ])
