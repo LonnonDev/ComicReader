@@ -4,5 +4,5 @@ PyInstaller.__main__.run([
 	'main.py',
 	'--windowed',
 	'--clean',
-	'--onefile'
+	'--onedir'
 ])	
