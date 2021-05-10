@@ -1,16 +1,24 @@
 from tkinter import *
 import tkinter as tk
 import os
+from os import path
 from PIL import ImageTk, Image
-import windowsize
+import sys
+import size
 
 root = tk.Tk()
 
-pagedir = 'Book/'
+try:
+	pagedir = (f"{sys.argv[1]}/")
+except IndexError:
+	print('No folder was launched with ComicReader, attempting to open the folder "Book"; To open ComicReader properly, drag and drop a folder containing images onto the executable.')
+	if not path.exists('Book/'):
+		sys.exit()
+	pagedir = 'Book/'
 
 sWidth,sHeight = root.winfo_screenwidth(), root.winfo_screenheight()
 
-WIDTH, HEIGHT, SCALEW, SCALEH = windowsize.start(pagedir,sWidth,sHeight)
+WIDTH, HEIGHT, SCALEW, SCALEH = size.start(pagedir,sWidth,sHeight)
 
 class Application(tk.Frame):
 	def __init__(self, master=None):
@@ -54,17 +62,17 @@ class Application(tk.Frame):
 			pass
 
 	def next_page(self):
-		if self.iterate >= len(self.entries):
-			self.iterate = len(self.entries)
+		if self.iterate == len(self.entries)-1:
+			self.iterate = len(self.entries)-2
 		self.iterate += 1
-		print(self.iterate)
+		print(f"Turned to page {self.iterate+1}.")
 		self.set_page()
 
 	def last_page(self):
 		if self.iterate <= 1:
 			self.iterate = 1
 		self.iterate -= 1
-		print(self.iterate)
+		print(f"Turned to page {self.iterate+1}.")
 		self.set_page()
 
 	def formatnumber(self, number):
@@ -72,6 +80,8 @@ class Application(tk.Frame):
 			formattednumber = f"0{number}"
 		return formattednumber
 
+root.title('ComicReader')
+root.attributes('-fullscreen', True)
 root.geometry(f"{WIDTH}x{HEIGHT}")
 root.configure(bg='#3d3d3d')
 app = Application(master=root)
