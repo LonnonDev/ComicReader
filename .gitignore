@@ -1,6 +1,6 @@
 # Ignore testing comics
 BadlandsChugs/
-Book/
+Prologue/
 
 # Ignore pyinstaller's build stuff
 build/
