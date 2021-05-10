@@ -6,3 +6,5 @@ Prologue/
 build/
 dist/
 main.spec
+main.exe
+ComicReader.exe
