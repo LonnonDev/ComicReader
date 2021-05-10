@@ -18,4 +18,10 @@ for x in range(len(entries)):
 	imname = entries[x]
 	image = Image.open(f"{imagedir}{imname}")
 	iWidth,iHeight = image.size
-	print(f"Page Filename = {imname}, Page Width = {iWidth}px, Page Height = {iHeight}px")
+	#print(f"Page Filename = {imname}, Page Width = {iWidth}px, Page Height = {iHeight}px")
+	dict = {
+		'name': imname,
+		'width': iWidth,
+		'height': iHeight
+	}
+	print(dict)
