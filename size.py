@@ -1,7 +1,6 @@
 import os
 import tkinter as tk
-import math
-from PIL import ImageTk, Image
+from PIL import Image
 
 def start(imagedir,sWidth,sHeight):
 

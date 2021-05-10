@@ -1,5 +1,5 @@
-from tkinter import *
 import tkinter as tk
+from tkinter import Label
 import os
 from os import path
 from PIL import ImageTk, Image
