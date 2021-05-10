@@ -2,8 +2,15 @@ from tkinter import *
 import tkinter as tk
 import os
 from PIL import ImageTk, Image
+import windowsize
 
-WIDTH, HEIGHT = 700, 800
+root = tk.Tk()
+
+pagedir = 'Book/'
+
+sWidth,sHeight = root.winfo_screenwidth(), root.winfo_screenheight()
+
+WIDTH, HEIGHT, SCALEW, SCALEH = windowsize.start(pagedir,sWidth,sHeight)
 
 class Application(tk.Frame):
 	def __init__(self, master=None):
@@ -14,9 +21,9 @@ class Application(tk.Frame):
 
 		self.iterate = 0
 
-		self.entries = os.listdir('Book/')
+		self.entries = os.listdir(pagedir)
 		self.pagename = self.entries[self.iterate]
-		self.image = ImageTk.PhotoImage(Image.open(f'Book/{self.pagename}').resize((int(WIDTH/1.2), int(HEIGHT/1.2))))
+		self.image = ImageTk.PhotoImage(Image.open(f'{pagedir}{self.pagename}').resize((int(WIDTH/SCALEW), int(HEIGHT/SCALEH))))
 		self.label = Label(image=self.image)
 		self.pagetext = f"Page {self.iterate+1}"
 		self.pagenumber = Label(text=self.pagetext)
@@ -37,7 +44,7 @@ class Application(tk.Frame):
 	def set_page(self):
 		self.pagename = self.entries[self.iterate]
 		try:
-			self.image2 = ImageTk.PhotoImage(Image.open(f'Book/{self.pagename}').resize((int(WIDTH/1.2), int(HEIGHT/1.2))))
+			self.image2 = ImageTk.PhotoImage(Image.open(f'{pagedir}{self.pagename}').resize((int(WIDTH/SCALEW), int(HEIGHT/SCALEH))))
 			self.pagetext = f"Page {self.iterate+1}"
 			self.pagenumber.configure(text=self.pagetext)
 			self.pagenumber.text = self.pagetext
@@ -47,15 +54,15 @@ class Application(tk.Frame):
 			pass
 
 	def next_page(self):
-		if self.iterate+1 == len(self.entries)-1:
-			self.iterate = -1
+		if self.iterate >= len(self.entries):
+			self.iterate = len(self.entries)
 		self.iterate += 1
 		print(self.iterate)
 		self.set_page()
 
 	def last_page(self):
-		if self.iterate <= -1:
-			self.iterate = len(self.entries)-1
+		if self.iterate <= 1:
+			self.iterate = 1
 		self.iterate -= 1
 		print(self.iterate)
 		self.set_page()
@@ -65,8 +72,6 @@ class Application(tk.Frame):
 			formattednumber = f"0{number}"
 		return formattednumber
 
-
-root = tk.Tk()
 root.geometry(f"{WIDTH}x{HEIGHT}")
 root.configure(bg='#3d3d3d')
 app = Application(master=root)

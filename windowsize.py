@@ -3,25 +3,41 @@ import tkinter as tk
 import math
 from PIL import ImageTk, Image
 
-imagedir = 'Book/'
+def start(imagedir,sWidth,sHeight):
 
-root = tk.Tk()
+	entries = os.listdir(imagedir)
 
-sWidth = root.winfo_screenwidth()
-sHeight = root.winfo_screenheight()
+	pagesizes = {}
 
-print(f"Monitor Width = {sWidth}px, Monitor Height = {sHeight}px")
+	for x in range(len(entries)):
+		imagename = entries[x]
+		image = Image.open(f"{imagedir}{imagename}")
+		iWidth,iHeight = image.size
+		
+		dict = {
+			'name': imagename,
+			'width': iWidth,
+			'height': iHeight
+		}
+		
+		pagesizes[x] = dict
 
-entries = os.listdir(imagedir)
+	widths = []
+	heights = []
+	
+	for x in range(len(pagesizes)):
+		widths.insert(x,pagesizes[x]['width'])
+		heights.insert(x,pagesizes[x]['height'])
 
-for x in range(len(entries)):
-	imname = entries[x]
-	image = Image.open(f"{imagedir}{imname}")
-	iWidth,iHeight = image.size
-	#print(f"Page Filename = {imname}, Page Width = {iWidth}px, Page Height = {iHeight}px")
-	dict = {
-		'name': imname,
-		'width': iWidth,
-		'height': iHeight
-	}
-	print(dict)
+	maxwidth = (max(widths))
+	minwidth = (min(widths))
+	maxheight = (max(heights))
+	minheight = (min(heights))
+	
+	scalew = 2
+	scaleh = 2
+	
+	print(maxwidth,minwidth,maxheight,minheight)
+	
+	print(sWidth,sHeight,scalew,scaleh)
+	return sWidth,sHeight,scalew,scaleh
