@@ -37,8 +37,7 @@ class Application(tk.Frame):
 	def set_page(self):
 		self.pagename = self.entries[self.iterate]
 		try:
-			self.image2 = ImageTk.PhotoImage(Image.open(
-				f'Book/{self.pagename}').resize((int(WIDTH/1.2), int(HEIGHT/1.2))))
+			self.image2 = ImageTk.PhotoImage(Image.open(f'Book/{self.pagename}').resize((int(WIDTH/1.2), int(HEIGHT/1.2))))
 			self.pagetext = f"Page {self.iterate+1}"
 			self.pagenumber.configure(text=self.pagetext)
 			self.pagenumber.text = self.pagetext
@@ -50,15 +49,11 @@ class Application(tk.Frame):
 	def next_page(self):
 		if self.iterate+1 == len(self.entries)-1:
 			self.iterate = -1
-		if self.iterate <= -1:
-			self.iterate = len(self.entries)-1
 		self.iterate += 1
 		print(self.iterate)
 		self.set_page()
 
 	def last_page(self):
-		if self.iterate+1 == len(self.entries)-1:
-			self.iterate = -1
 		if self.iterate <= -1:
 			self.iterate = len(self.entries)-1
 		self.iterate -= 1
