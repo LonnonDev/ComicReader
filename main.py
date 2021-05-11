@@ -81,7 +81,6 @@ class Application(tk.Frame):
 		return formattednumber
 
 root.title('ComicReader')
-root.attributes('-fullscreen', True)
 root.geometry(f"{WIDTH}x{HEIGHT}")
 root.configure(bg='#3d3d3d')
 app = Application(master=root)
